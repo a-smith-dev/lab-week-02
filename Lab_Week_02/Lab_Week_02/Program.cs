@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 
 namespace Lab_Week_02
 {
@@ -7,7 +8,7 @@ namespace Lab_Week_02
         static void Main(string[] args)
         {
             Console.Write("Welcome to the Grand Circus Casino! Roll the dice? (y/n): ");
-            var response = ValidateYesNo(Console.ReadLine().ToLower());
+            var response = ValidateYesNo(Console.ReadLine());
             var counter = 1;
             int size;
             while (response == "y")
@@ -20,18 +21,18 @@ namespace Lab_Week_02
                 Roll(size);
 
                 Console.Write("Roll again? (y/n): ");
-                response = ValidateYesNo(Console.ReadLine().ToLower());
+                response = ValidateYesNo(Console.ReadLine());
                 counter++;
             }
-            Console.WriteLine("Thank you for playing!");
+            Console.WriteLine("\nThank you for playing!");
         }
 
-        private static string ValidateYesNo(string response)
+        public static string ValidateYesNo(string response)
         {
-            while(response != "y" && response != "n")
+            while (!Regex.IsMatch($"{response.ToLower()}", "[yn]"))
             {
                 Console.Write("Please enter y or n: ");
-                response = Console.ReadLine().ToLower();
+                response = Console.ReadLine();
             }
             return response;
         }
