@@ -10,11 +10,10 @@ namespace Lab_Week_02
             Console.Write("Welcome to the Grand Circus Casino! Roll the dice? (y/n): ");
             var response = ValidateYesNo(Console.ReadLine());
             var counter = 1;
-            int size;
             while (response == "y")
             {
                 Console.Write("How many sides should each die have? ");
-                size = ValidateNumber(Console.ReadLine());
+                int size = ValidateNumber(Console.ReadLine());
 
                 Console.WriteLine($"Roll {counter}:");
                 Roll(size);
@@ -26,7 +25,6 @@ namespace Lab_Week_02
             }
             Console.WriteLine("\nThank you for playing!");
         }
-
         public static string ValidateYesNo(string response)
         {
             while (!Regex.IsMatch($"{response.ToLower()}", "[yn]"))
