@@ -47,7 +47,7 @@ namespace Lab_Week_02
         public static void Roll(int size)
         {
             var random = new Random();
-            Console.WriteLine(random.Next(1, size));
+            Console.WriteLine(random.Next(1, size + 1));
         }
     }
 }
