@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace Lab_Week_02
 {
@@ -28,12 +29,13 @@ namespace Lab_Week_02
 
         public static string ValidateYesNo(string response)
         {
-            while (response.ToLower() != "y" && response.ToLower() != "n")
+            response = response.ToLower();
+            while (!Regex.IsMatch($"{response}", "^[yn]$"))
             {
                 Console.Write("Please enter y or n: ");
-                response = Console.ReadLine();
+                response = Console.ReadLine().ToLower();
             }
-            return response.ToLower();
+            return response;
         }
         public static int ValidateNumber(string response)
         {
