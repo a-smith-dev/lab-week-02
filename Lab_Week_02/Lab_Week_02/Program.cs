@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Text.RegularExpressions;
+using System.Collections.Generic;
 
 namespace Lab_Week_02
 {
@@ -7,32 +7,33 @@ namespace Lab_Week_02
     {
         static void Main(string[] args)
         {
+
             Console.Write("Welcome to the Grand Circus Casino! Roll the dice? (y/n): ");
             var response = ValidateYesNo(Console.ReadLine());
             var counter = 1;
             while (response == "y")
             {
                 Console.Write("How many sides should each die have? ");
-                int size = ValidateNumber(Console.ReadLine());
-
-                Console.WriteLine($"Roll {counter}:");
-                Roll(size);
-                Roll(size);
-
-                Console.Write("Roll again? (y/n): ");
+                int sides = ValidateNumber(Console.ReadLine());
+                Console.WriteLine($"\nRoll {counter}:");
+                var die1 = Roll(sides);
+                var die2 = Roll(sides);
+                CheckRolls(die1, die2);
+                Console.Write("\nRoll again? (y/n): ");
                 response = ValidateYesNo(Console.ReadLine());
                 counter++;
             }
             Console.WriteLine("\nThank you for playing!");
         }
+
         public static string ValidateYesNo(string response)
         {
-            while (!Regex.IsMatch($"{response.ToLower()}", "[yn]"))
+            while (response.ToLower() != "y" && response.ToLower() != "n")
             {
                 Console.Write("Please enter y or n: ");
                 response = Console.ReadLine();
             }
-            return response;
+            return response.ToLower();
         }
         public static int ValidateNumber(string response)
         {
@@ -44,10 +45,29 @@ namespace Lab_Week_02
             }
             return number;
         }
-        public static void Roll(int size)
+        public static int Roll(int sides)
         {
             var random = new Random();
-            Console.WriteLine(random.Next(1, size + 1));
+            var result = random.Next(1, sides + 1);
+            Console.WriteLine(result);
+            return result;
+        }
+        public static void CheckRolls(int die1, int die2)
+        {
+            var sum = die1 + die2;
+            string message;
+            var rollResults = new Dictionary<int, string>()
+            {
+                {2, "Snake Eyes!"},
+                {3, "Craps!"},
+                {7, "Natural!"},
+                {11, "Natural!"},
+                {12, "Box Cars!"}
+            };
+            if (rollResults.TryGetValue(sum, out message))
+            {
+                Console.WriteLine(message);
+            }
         }
     }
 }
