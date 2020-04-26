@@ -8,7 +8,6 @@ namespace Lab_Week_02
     {
         static void Main(string[] args)
         {
-
             Console.Write("Welcome to the Grand Circus Casino! Roll the dice? (y/n): ");
             var response = ValidateYesNo(Console.ReadLine());
             var counter = 1;
@@ -17,16 +16,13 @@ namespace Lab_Week_02
                 Console.Write("How many sides should each die have? ");
                 int sides = ValidateNumber(Console.ReadLine());
                 Console.WriteLine($"\nRoll {counter}:");
-                var die1 = Roll(sides);
-                var die2 = Roll(sides);
-                CheckRolls(die1, die2);
+                CheckRolls(Roll(sides), Roll(sides));
                 Console.Write("\nRoll again? (y/n): ");
                 response = ValidateYesNo(Console.ReadLine());
                 counter++;
             }
             Console.WriteLine("\nThank you for playing!");
         }
-
         public static string ValidateYesNo(string response)
         {
             response = response.ToLower();
@@ -57,7 +53,6 @@ namespace Lab_Week_02
         public static void CheckRolls(int die1, int die2)
         {
             var sum = die1 + die2;
-            string message;
             var rollResults = new Dictionary<int, string>()
             {
                 {2, "Snake Eyes!"},
@@ -66,7 +61,7 @@ namespace Lab_Week_02
                 {11, "Natural!"},
                 {12, "Box Cars!"}
             };
-            if (rollResults.TryGetValue(sum, out message))
+            if (rollResults.TryGetValue(sum, out string message))
             {
                 Console.WriteLine(message);
             }
